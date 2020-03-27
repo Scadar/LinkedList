@@ -1,5 +1,7 @@
 package ru.scadarnull.list;
 
+import java.util.Objects;
+
 public class MyLinkedList<T> {
     private Node<T> first;
     private Node<T> last;
@@ -21,8 +23,7 @@ public class MyLinkedList<T> {
     public void push_front(T value){
         Node<T> node = new Node<>(value);
         if(size == 0){
-            first = node;
-            last = node;
+            first = last = node;
         }else{
             node.setNext(first);
             first.setPrev(node);
@@ -56,8 +57,8 @@ public class MyLinkedList<T> {
                 node.setPrev(null);
             size--;
         }
-            if(size == 0)
-                first = last = null;
+        if(size == 0)
+            first = last = null;
         return result;
     }
 
@@ -70,5 +71,38 @@ public class MyLinkedList<T> {
             current = current.getNext();
         }
         return str.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        boolean result = true;
+
+        if (o instanceof MyLinkedList) {
+            MyLinkedList<T> other = (MyLinkedList<T>) o;
+            if(this.getSize() != other.getSize())
+                return false;
+            Node<T> current = first;
+            Node<T> current2 = other.first;
+            while(current != null){
+                if(!current.getValue().equals(current2.getValue())){
+                    result = false;
+                    break;
+                }
+                current = current.getNext();
+                current2 = current2.getNext();
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(first, last, size);
+    }
+
+    public int getSize(){
+        return size;
     }
 }
