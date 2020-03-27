@@ -62,6 +62,35 @@ public class MyLinkedList<T> {
         return result;
     }
 
+    public T getItem(int index){
+        T result = null;
+        if(index < size && index >= 0){
+            Node<T> node = findItem(index);
+            result = node.getValue();
+        }
+        return result;
+    }
+
+    public boolean setItem(int index, T data){
+        boolean result = false;
+        if(index < size && index >= 0){
+            Node<T> node = findItem(index);
+            node.setValue(data);
+            result = true;
+        }
+        return result;
+    }
+
+    private Node<T> findItem(int index){
+        Node<T> cur = first;
+        int i = 0;
+        while(i != index){
+            cur = cur.getNext();
+            ++i;
+        }
+        return cur;
+    }
+
     @Override
     public String toString() {
         Node<T> current = first;
@@ -81,8 +110,10 @@ public class MyLinkedList<T> {
 
         if (o instanceof MyLinkedList) {
             MyLinkedList<T> other = (MyLinkedList<T>) o;
+
             if(this.getSize() != other.getSize())
                 return false;
+
             Node<T> current = first;
             Node<T> current2 = other.first;
             while(current != null){
