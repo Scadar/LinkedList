@@ -91,6 +91,36 @@ public class MyLinkedList<T> {
         return cur;
     }
 
+    public void clear(){
+        first = last = null;
+        size = 0;
+    }
+
+    public boolean insert(int index, T data){
+        boolean result = false;
+        if(index == 0){
+            push_front(data);
+            size++;
+            return true;
+        }
+        if(index == getSize()){
+            push_back(data);
+            size++;
+            return true;
+        }
+        if(index < getSize() && index > 0){
+            Node<T> currentNode = new Node<>(data);
+            Node<T> prevNode = findItem(index-1);
+            Node<T> nextNode = prevNode.getNext();
+            prevNode.setNext(currentNode);
+            currentNode.setPrev(prevNode);
+            currentNode.setNext(nextNode);
+            result = true;
+            size++;
+        }
+        return result;
+    }
+
     @Override
     public String toString() {
         Node<T> current = first;

@@ -9,9 +9,8 @@ public class TestList {
         l.push_back(15);
         l.push_back(1);
         l.push_back(2);
-        System.out.println(l.getItem(5));
-        System.out.println(l.setItem(-1, 100));
         System.out.println(l);
-        System.out.println(l2);
+        System.out.println(l.insert(3, 55));
+        System.out.println(l);
     }
 }
