@@ -31,6 +31,36 @@ public class MyLinkedList<T> {
         size++;
     }
 
+    public T pop_back(){
+        T result = null;
+        if(size != 0) {
+            result = last.getValue();
+            Node<T> node = last.getPrev();
+            last = node;
+            if(node != null)
+                node.setNext(null);
+            size--;
+        }
+        if(size == 0)
+            first = last = null;
+        return result;
+    }
+
+    public T pop_front(){
+        T result = null;
+        if(size != 0) {
+            result = first.getValue();
+            Node<T> node = first.getNext();
+            first = node;
+            if(node != null)
+                node.setPrev(null);
+            size--;
+        }
+            if(size == 0)
+                first = last = null;
+        return result;
+    }
+
     @Override
     public String toString() {
         Node<T> current = first;
