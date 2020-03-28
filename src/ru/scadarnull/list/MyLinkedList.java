@@ -19,7 +19,7 @@ public class MyLinkedList<T> {
         }
         size++;
     }
-
+    //Добавить throws
     public void push_front(T value){
         Node<T> node = new Node<>(value);
         if(size == 0){
@@ -34,29 +34,34 @@ public class MyLinkedList<T> {
 
     public T pop_back(){
         T result = null;
-        if(size != 0) {
-            result = last.getValue();
-            Node<T> node = last.getPrev();
-            last = node;
-            if(node != null)
-                node.setNext(null);
-            size--;
-        }
+        if(size == 0)
+            throw new IndexOutOfBoundsException("You cannot delete an item, size = 0");
+
+        result = last.getValue();
+        Node<T> node = last.getPrev();
+        last = node;
+        if(node != null)
+            node.setNext(null);
+        size--;
+
         if(size == 0)
             first = last = null;
+
         return result;
     }
 
     public T pop_front(){
         T result = null;
-        if(size != 0) {
-            result = first.getValue();
-            Node<T> node = first.getNext();
-            first = node;
-            if(node != null)
-                node.setPrev(null);
-            size--;
-        }
+        if(size == 0)
+            throw new IndexOutOfBoundsException("You cannot delete an item, size = 0");
+
+        result = first.getValue();
+        Node<T> node = first.getNext();
+        first = node;
+        if(node != null)
+            node.setPrev(null);
+        size--;
+
         if(size == 0)
             first = last = null;
         return result;
@@ -67,6 +72,8 @@ public class MyLinkedList<T> {
         if(index < size && index >= 0){
             Node<T> node = findItem(index);
             result = node.getValue();
+        }else{
+            throw new IndexOutOfBoundsException("Index should between 0 and " + (size - 1) + ".Current index = " + index);
         }
         return result;
     }
@@ -77,6 +84,8 @@ public class MyLinkedList<T> {
             Node<T> node = findItem(index);
             node.setValue(data);
             result = true;
+        }else{
+            throw new IndexOutOfBoundsException("Index should between 0 and " + (size - 1) + ".Current index = " + index);
         }
         return result;
     }
@@ -96,17 +105,16 @@ public class MyLinkedList<T> {
         size = 0;
     }
 
-    public boolean insert(int index, T data){
-        boolean result = false;
+    public void insert(int index, T data){
         if(index == 0){
             push_front(data);
             size++;
-            return true;
+            return;
         }
         if(index == getSize()){
             push_back(data);
             size++;
-            return true;
+            return;
         }
         if(index < getSize() && index > 0){
             Node<T> currentNode = new Node<>(data);
@@ -115,10 +123,10 @@ public class MyLinkedList<T> {
             prevNode.setNext(currentNode);
             currentNode.setPrev(prevNode);
             currentNode.setNext(nextNode);
-            result = true;
             size++;
+        }else{
+            throw new IndexOutOfBoundsException("Index should between 0 and " + (size) + ".Current index = " + index);
         }
-        return result;
     }
 
     @Override
