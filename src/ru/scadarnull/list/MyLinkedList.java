@@ -139,13 +139,13 @@ public class MyLinkedList<T> {
         boolean result = true;
 
         if (o instanceof MyLinkedList) {
-            MyLinkedList<T> other = (MyLinkedList<T>) o;
+            MyLinkedList<?> other = (MyLinkedList<?>) o;
 
             if(this.getSize() != other.getSize())
                 return false;
 
             Node<T> current = first;
-            Node<T> current2 = other.first;
+            Node<?> current2 = other.first;
             while(current != null){
                 if(!current.getValue().equals(current2.getValue())){
                     result = false;

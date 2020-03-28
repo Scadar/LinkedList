@@ -2,7 +2,7 @@ package ru.scadarnull.list;
 
 import java.util.Objects;
 
-public class Node<T> {
+class Node<T> {
     private Node<T> prev;
     private Node<T> next;
     private T value;
@@ -38,13 +38,11 @@ public class Node<T> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        boolean result = false;
-        if (o instanceof Node) {
-            Node<T> other = (Node<T>)o;
-            if(this.getValue().equals(other.getValue()))
-                result = true;
-        }
-        return result;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node<?> node = (Node<?>) o;
+        return Objects.equals(prev, node.prev) &&
+                Objects.equals(next, node.next) &&
+                Objects.equals(value, node.value);
     }
 
     @Override
